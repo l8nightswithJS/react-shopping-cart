@@ -17,6 +17,7 @@ function App() {
 		setCart([...cart, item]);
 		};
 		// add the given item to the cart
+		//work on strech for remove not just item but count
 
 	return (
 		<div className="App">

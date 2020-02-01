@@ -10,7 +10,9 @@ const ShoppingCart = () => {
 		return cart.reduce((acc, value) => {
 			return acc + value.price;
 		}, 0).toFixed(2);
+		//places two decimal points and rounds up .tofixed(2)  
 	};
+	
 
 	return (
 		<div className="shopping-cart">
