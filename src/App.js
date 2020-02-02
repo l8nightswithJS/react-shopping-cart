@@ -16,12 +16,15 @@ function App() {
 	const addItem = item => {
 		setCart([...cart, item]);
 		};
+		const removeItem = id => {
+			setCart(cart.filter((item) => item.id !== id));
+		}
 		// add the given item to the cart
 		//work on strech for remove not just item but count
 
 	return (
 		<div className="App">
-			<ProductContext.Provider value={{products, addItem}}>
+			<ProductContext.Provider value={{products, addItem, removeItem}}>
 			<Route exact path="/" component={Products} />
 				<CartContext.Provider value={{ cart, setCart}}>
 					<Navigation />
