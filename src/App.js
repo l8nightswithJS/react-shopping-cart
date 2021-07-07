@@ -6,35 +6,36 @@ import data from './data';
 import Navigation from './components/Navigation';
 import Products from './components/Products';
 import ShoppingCart from './components/ShoppingCart';
+import ProductContext from './contexts/ProductContext';
+import CartContext from './contexts/CartContext';
 
 function App() {
 	const [products] = useState(data);
 	const [cart, setCart] = useState([]);
 
 	const addItem = item => {
+		setCart([...cart, item]);
+		};
+		const removeItem = id => {
+			setCart(cart.filter((item) => item.id !== id));
+		}
 		// add the given item to the cart
-	};
+		//work on strech for remove not just item but count
 
 	return (
 		<div className="App">
-			<Navigation cart={cart} />
-
-			{/* Routes */}
-			<Route
-				exact
-				path="/"
-				render={() => (
-					<Products
-						products={products}
-						addItem={addItem}
+			<ProductContext.Provider value={{products, addItem, removeItem}}>
+			
+				<CartContext.Provider value={{ cart, setCart}}>
+					<Navigation />
+					<Route exact path="/" component={Products} />
+					{/* Routes */}
+					<Route 
+					path="/cart" 
+					render={() => <ShoppingCart cart={cart} />}
 					/>
-				)}
-			/>
-
-			<Route
-				path="/cart"
-				render={() => <ShoppingCart cart={cart} />}
-			/>
+				</CartContext.Provider>
+			</ProductContext.Provider>
 		</div>
 	);
 }
